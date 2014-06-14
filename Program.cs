@@ -11,13 +11,15 @@ namespace ZadanieKomiwojazera
         static void Main(string[] args)
         {
             ReprezentacjaPorzadkowa repr = new ReprezentacjaPorzadkowa();
-            Console.WriteLine("Trasa: {0}", displayHelper(GlobalVariables.miasta));
+            Console.WriteLine("{1,12} {0}", displayHelper(GlobalVariables.miasta),"Trasa:");
             for (int i = 1; i < 101; i++)
             {
                 int[] rodzic = repr.generatoRodzicow(GlobalVariables.miasta, new int[GlobalVariables.miasta.Length], 0);
+                string rodzicString = String.Format("Rodzic[{0}]:", i);
+                string trasaString = String.Format("Trasa[{0}]:",i);
 
-                Console.WriteLine("Wygenerowany rodzic[{1}]: {0}", displayHelper(rodzic),i);
-                Console.WriteLine("Wygenerowana trasa[{1}]: {0}", displayHelper(repr.odczytTrasy(rodzic)),i);
+                Console.WriteLine("{1,12} {0}", displayHelper(rodzic),rodzicString);
+                Console.WriteLine("{1,12} {0}", displayHelper(repr.odczytTrasy(rodzic)),trasaString);
             }
 
             Console.ReadKey();
@@ -26,12 +28,17 @@ namespace ZadanieKomiwojazera
         private static string displayHelper(int[] data)
         {
             string outputString = "{";
+            int controlSum = 0;
             foreach (var item in data)
             {
-                outputString += " " + item.ToString();
+                outputString += String.Format("{0,3}", item);
+                controlSum += item;
             }
-            outputString += " }";
+            outputString += " } Sum: ";
+            outputString += controlSum.ToString();
             return outputString;
         }
+
+
     }
 }
