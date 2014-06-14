@@ -11,6 +11,8 @@ namespace ZadanieKomiwojazera
     {
         static void Main(string[] args)
         {
+            GlobalVariables.Debug = false;
+
             int ilosc_miast = 15;
 
             int ilosc_osobnikow = 100;
@@ -33,7 +35,7 @@ namespace ZadanieKomiwojazera
 
                 listaOsobnikow[i] = chromosom;
 
-                Thread.Sleep(40);
+                if(GlobalVariables.Debug) Thread.Sleep(40);
 
             }
 
@@ -48,18 +50,18 @@ namespace ZadanieKomiwojazera
             {
                 Console.WriteLine("----------------------------------------------------------------");
                 Console.WriteLine(" Ciąg[{0}]: {1}", i, displayHelper(listaOsobnikow[i].ciagWiazan));
-                Console.WriteLine("Trasa[{0}]: {1}", i, displayHelper(listaOsobnikow[i].trasa));
                 Console.WriteLine(" Ciąg[{0}]: {1}", i+1, displayHelper(listaOsobnikow[i+1].ciagWiazan));
+                Console.WriteLine("Trasa[{0}]: {1}", i, displayHelper(listaOsobnikow[i].trasa));
                 Console.WriteLine("Trasa[{0}]: {1}", i+1, displayHelper(listaOsobnikow[i+1].trasa));
                 int punktPrzeciecia = GlobalVariables.random.Next(1,GlobalVariables.miasta.Length-2);
                 Console.WriteLine("Krzyzowanie, punkt przeciecia = {0}:", punktPrzeciecia);
                 ReprezentacjaPorzadkowa.krzyzowanieJednopunktowe(punktPrzeciecia, listaOsobnikow[i], listaOsobnikow[i + 1]);
                 Console.WriteLine(" Ciąg[{0}]: {1}", i, displayHelper(listaOsobnikow[i].ciagWiazan));
-                Console.WriteLine("Trasa[{0}]: {1}", i, displayHelper(listaOsobnikow[i].trasa));
                 Console.WriteLine(" Ciąg[{0}]: {1}", i + 1, displayHelper(listaOsobnikow[i + 1].ciagWiazan));
+                Console.WriteLine("Trasa[{0}]: {1}", i, displayHelper(listaOsobnikow[i].trasa));
                 Console.WriteLine("Trasa[{0}]: {1}", i + 1, displayHelper(listaOsobnikow[i + 1].trasa));
 
-                Thread.Sleep(40);
+                if (GlobalVariables.Debug) Thread.Sleep(40);
             }
         }
 

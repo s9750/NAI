@@ -11,5 +11,7 @@ namespace ZadanieKomiwojazera
         public static Random random = new Random();
 
         public static int[] miasta;
+
+        public static bool Debug = false;
     }
 }
