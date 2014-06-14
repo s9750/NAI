@@ -35,5 +35,16 @@ namespace ZadanieKomiwojazera
             return output;
         }
 
+        public static void krzyzowanieJednopunktowe(int punktPrzeciecia, ChromosomReprezentacjaPorzadkowa pierwszyOsobnik, ChromosomReprezentacjaPorzadkowa drugiOsobnik)
+        {
+            for (int i = 0; i < punktPrzeciecia; i++)
+            {
+                pierwszyOsobnik.ciagWiazan[i] = pierwszyOsobnik.ciagWiazan[i] ^ drugiOsobnik.ciagWiazan[i];
+                drugiOsobnik.ciagWiazan[i] = pierwszyOsobnik.ciagWiazan[i] ^ drugiOsobnik.ciagWiazan[i];
+                pierwszyOsobnik.ciagWiazan[i] = pierwszyOsobnik.ciagWiazan[i] ^ drugiOsobnik.ciagWiazan[i];
+            }
+            pierwszyOsobnik.updateTrasy();
+            drugiOsobnik.updateTrasy();
+        }
     }
 }
