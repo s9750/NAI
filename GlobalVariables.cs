@@ -16,9 +16,12 @@ namespace ZadanieKomiwojazera
 
         public static bool Debug = false;
 
+        public static List<string> macierzKosztowList;
+
         public static void generujMacierzKosztow() 
         {
             List<string> rowsList = new List<string>();
+            macierzKosztowList = new List<string>();
             string firstLine = String.Format("{0,5}|", String.Empty);
 
             macierzKosztow = new int[miasta.Length][];
@@ -38,8 +41,10 @@ namespace ZadanieKomiwojazera
 
             }
             Console.WriteLine(firstLine);
+            macierzKosztowList.Add(firstLine);
             foreach (var item in rowsList)
             {
+                macierzKosztowList.Add(item);
                 Console.WriteLine(item);
             }
         }
