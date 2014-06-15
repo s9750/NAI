@@ -41,6 +41,13 @@ namespace ZadanieKomiwojazera
             
             podstawoweKrzyzowanie(listaOsobnikow);
 
+            int counter = 0;
+            foreach (var item in listaOsobnikow)
+            {
+                Console.WriteLine("Osobnik[{0,2}]: {1,2}", counter, item.ocena);
+                counter++;
+            }
+
             Console.ReadKey();
         }
 
