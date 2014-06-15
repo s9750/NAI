@@ -38,7 +38,7 @@ namespace ZadanieKomiwojazera
                 if(GlobalVariables.Debug) Thread.Sleep(40);
 
             }
-
+            
             podstawoweKrzyzowanie(listaOsobnikow);
 
             Console.ReadKey();
@@ -72,6 +72,7 @@ namespace ZadanieKomiwojazera
             {
                 GlobalVariables.miasta[i] = i + 1;
             }
+            GlobalVariables.generujMacierzKosztow();
         }
 
         private static string displayHelper(int[] data)
