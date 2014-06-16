@@ -38,38 +38,89 @@ namespace ZadanieKomiwojazera
                 if(GlobalVariables.Debug) Thread.Sleep(40);
 
             }
-            
-            podstawoweKrzyzowanie(listaOsobnikow);
 
-            int counter = 0;
-            foreach (var item in listaOsobnikow)
+            for (int i = 0; i < 50; i++)
             {
-                Console.WriteLine("Osobnik[{0,2}]: {1,2}", counter, item.ocena);
-                counter++;
+                listaOsobnikow = podstawoweKrzyzowanie(listaOsobnikow);
+
             }
+            
+
+            //int counter = 0;
+            //foreach (var item in listaOsobnikow)
+            //{
+            //    Console.WriteLine("Osobnik[{0,2}]: {1,2}", counter, item.ocena);
+            //    counter++;
+            //}
 
             Console.ReadKey();
         }
 
-        private static void podstawoweKrzyzowanie(ChromosomReprezentacjaPorzadkowa[] listaOsobnikow)
+        private static ChromosomReprezentacjaPorzadkowa[] podstawoweKrzyzowanie(ChromosomReprezentacjaPorzadkowa[] listaOsobnikow)
         {
-            for (int i = 0; i < listaOsobnikow.Length-1; i++)
-            {
-                Console.WriteLine("----------------------------------------------------------------");
-                Console.WriteLine(" Ciąg[{0}]: {1}", i, displayHelper(listaOsobnikow[i].ciagWiazan));
-                Console.WriteLine(" Ciąg[{0}]: {1}", i+1, displayHelper(listaOsobnikow[i+1].ciagWiazan));
-                Console.WriteLine("Trasa[{0}]: {1}", i, displayHelper(listaOsobnikow[i].trasa));
-                Console.WriteLine("Trasa[{0}]: {1}", i+1, displayHelper(listaOsobnikow[i+1].trasa));
-                int punktPrzeciecia = GlobalVariables.random.Next(1,GlobalVariables.miasta.Length-2);
-                Console.WriteLine("Krzyzowanie, punkt przeciecia = {0}:", punktPrzeciecia);
-                ReprezentacjaPorzadkowa.krzyzowanieJednopunktowe(punktPrzeciecia, listaOsobnikow[i], listaOsobnikow[i + 1]);
-                Console.WriteLine(" Ciąg[{0}]: {1}", i, displayHelper(listaOsobnikow[i].ciagWiazan));
-                Console.WriteLine(" Ciąg[{0}]: {1}", i + 1, displayHelper(listaOsobnikow[i + 1].ciagWiazan));
-                Console.WriteLine("Trasa[{0}]: {1}", i, displayHelper(listaOsobnikow[i].trasa));
-                Console.WriteLine("Trasa[{0}]: {1}", i + 1, displayHelper(listaOsobnikow[i + 1].trasa));
+            List<ChromosomReprezentacjaPorzadkowa> prawdziwaListaChromosomow = new List<ChromosomReprezentacjaPorzadkowa>();
+            Console.WriteLine("Przed krzyzowaniem: ");
+            int i = 1;
+            int Total = 0;
+            foreach (var item in listaOsobnikow)
+	        {
+		           prawdziwaListaChromosomow.Add(item);
+                   Console.WriteLine("Rodzic[{0,3}]:{1},Ocena:{2,3}", i, displayHelper(item.ciagWiazan), item.ocena);
+                   i++;
+                   Total += item.ocena;
+	        }
+            Console.WriteLine("Total: {0}", Total);
 
-                if (GlobalVariables.Debug) Thread.Sleep(40);
+            List<ChromosomReprezentacjaPorzadkowa> dzieci = new List<ChromosomReprezentacjaPorzadkowa>();
+
+            while (prawdziwaListaChromosomow.Count > 1)
+            {
+                int g = GlobalVariables.random.Next(1, 3);
+
+                int punktPrzeciecia = GlobalVariables.random.Next(1, GlobalVariables.miasta.Length - 2);
+
+                int osobnik_B = GlobalVariables.random.Next(1,prawdziwaListaChromosomow.Count-1);
+
+                ChromosomReprezentacjaPorzadkowa dziecko;
+                ChromosomReprezentacjaPorzadkowa rodzic = prawdziwaListaChromosomow[0];
+
+                //Console.WriteLine("Krzyzowanie, punkt przeciecia = {0}:", punktPrzeciecia);
+                if (g % 3 == 1)
+                {
+                    //cross with the next one
+                    dziecko =
+                    ReprezentacjaPorzadkowa.krzyzowanieJednopunktowe(punktPrzeciecia, 
+                        rodzic, prawdziwaListaChromosomow[1]);
+                } else {
+                    //cross with random next
+                    dziecko =
+                    ReprezentacjaPorzadkowa.krzyzowanieJednopunktowe(punktPrzeciecia,
+                        rodzic, prawdziwaListaChromosomow[osobnik_B]);
+                }
+
+                if (rodzic.ocena > dziecko.ocena)
+                {
+                    dzieci.Add(dziecko);
+                    prawdziwaListaChromosomow.RemoveAt(0);
+                }
             }
+
+            dzieci.Add(prawdziwaListaChromosomow[0]);
+
+            Console.WriteLine("Po krzyzowaniu: ");
+            i = 1;
+            Total = 0;
+            foreach (var item in dzieci)
+            {
+                listaOsobnikow[i - 1] = item;
+                Console.WriteLine("Dziecko[{0,3}]:{1},Ocena:{2,3}", i, displayHelper(item.ciagWiazan), item.ocena);
+                i++;
+                Total += item.ocena;
+            }
+            //GlobalVariables.TheTotal = Total;
+            Console.WriteLine("Total: {0}", Total);
+
+            return listaOsobnikow;
         }
 
         private static void wygenerujMiasta(int ilosc)
@@ -96,6 +147,22 @@ namespace ZadanieKomiwojazera
             return outputString;
         }
 
+        //for (int i = 0; i < listaOsobnikow.Length-1; i++)
+        //{
+        //    Console.WriteLine("----------------------------------------------------------------");
+        //    Console.WriteLine("Rodzic[{0}]:{1},Ocena:{2,3}", i, displayHelper(listaOsobnikow[i].ciagWiazan), listaOsobnikow[i].ocena);
+        //    Console.WriteLine("Rodzic[{0}]:{1},Ocena:{2,3}", i + 1, displayHelper(listaOsobnikow[i + 1].ciagWiazan), listaOsobnikow[i+1].ocena);
+        //    //Console.WriteLine(" Trasa[{0}]: {1}", i, displayHelper(listaOsobnikow[i].trasa));
+        //    //Console.WriteLine(" Trasa[{0}]: {1}", i+1, displayHelper(listaOsobnikow[i+1].trasa));
+        //    int punktPrzeciecia = GlobalVariables.random.Next(1,GlobalVariables.miasta.Length-2);
+        //    Console.WriteLine("Krzyzowanie, punkt przeciecia = {0}:", punktPrzeciecia);
+        //    ReprezentacjaPorzadkowa.krzyzowanieJednopunktowe(punktPrzeciecia, listaOsobnikow[i], listaOsobnikow[i + 1]);
+        //    Console.WriteLine("Rodzic[{0}]:{1},Ocena:{2,3}", i, displayHelper(listaOsobnikow[i].ciagWiazan), listaOsobnikow[i].ocena);
+        //    Console.WriteLine("Rodzic[{0}]:{1},Ocena:{2,3}", i + 1, displayHelper(listaOsobnikow[i + 1].ciagWiazan), listaOsobnikow[i+1].ocena);
+        //    //Console.WriteLine(" Trasa[{0}]: {1}", i, displayHelper(listaOsobnikow[i].trasa));
+        //    //Console.WriteLine(" Trasa[{0}]: {1}", i + 1, displayHelper(listaOsobnikow[i + 1].trasa));
 
+        //    if (GlobalVariables.Debug) Thread.Sleep(40);
+        //}
     }
 }

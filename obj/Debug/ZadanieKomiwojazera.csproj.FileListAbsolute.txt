@@ -1,6 +1,5 @@
 c:\users\123\documents\visual studio 2012\Projects\ZadanieKomiwojazera\ZadanieKomiwojazera\bin\Debug\ZadanieKomiwojazera.exe.config
 c:\users\123\documents\visual studio 2012\Projects\ZadanieKomiwojazera\ZadanieKomiwojazera\bin\Debug\ZadanieKomiwojazera.exe
 c:\users\123\documents\visual studio 2012\Projects\ZadanieKomiwojazera\ZadanieKomiwojazera\bin\Debug\ZadanieKomiwojazera.pdb
-c:\users\123\documents\visual studio 2012\Projects\ZadanieKomiwojazera\ZadanieKomiwojazera\obj\Debug\ZadanieKomiwojazera.csprojResolveAssemblyReference.cache
 c:\users\123\documents\visual studio 2012\Projects\ZadanieKomiwojazera\ZadanieKomiwojazera\obj\Debug\ZadanieKomiwojazera.exe
 c:\users\123\documents\visual studio 2012\Projects\ZadanieKomiwojazera\ZadanieKomiwojazera\obj\Debug\ZadanieKomiwojazera.pdb

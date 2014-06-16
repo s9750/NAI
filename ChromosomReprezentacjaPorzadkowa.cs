@@ -38,9 +38,9 @@ namespace ZadanieKomiwojazera
             this.ocena = 0;
             for (int i = 0; i < this.trasa.Length-1; i++)
             {
-                this.ocena += GlobalVariables.macierzKosztow[trasa[i]-1][trasa[i + 1]-1];
+                this.ocena += GlobalVariables.macierzKosztow[this.trasa[i]-1][this.trasa[i + 1]-1];
             }
-            Console.WriteLine("Ocena: {0,5}", ocena);
+            //Console.WriteLine("Ocena: {0,5}", ocena);
         }
     }
 }

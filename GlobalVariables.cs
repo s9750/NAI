@@ -14,6 +14,8 @@ namespace ZadanieKomiwojazera
 
         public static int[][] macierzKosztow;
 
+        public static int TheTotal = 0;
+
         public static bool Debug = false;
 
         public static List<string> macierzKosztowList;
