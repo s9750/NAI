@@ -73,6 +73,8 @@ namespace ZadanieKomiwojazera
 
             List<ChromosomReprezentacjaPorzadkowa> dzieci = new List<ChromosomReprezentacjaPorzadkowa>();
 
+            int loopCounter = 0;
+
             while (prawdziwaListaChromosomow.Count > 1)
             {
                 int g = GlobalVariables.random.Next(1, 3);
@@ -98,10 +100,19 @@ namespace ZadanieKomiwojazera
                         rodzic, prawdziwaListaChromosomow[osobnik_B]);
                 }
 
-                if (rodzic.ocena > dziecko.ocena)
+                if (rodzic.ocena > dziecko.ocena || rodzic.ocena == dziecko.ocena)
                 {
                     dzieci.Add(dziecko);
                     prawdziwaListaChromosomow.RemoveAt(0);
+                    loopCounter = 0;
+                }
+
+                loopCounter++;
+
+                if (loopCounter == 250)
+                {
+                    prawdziwaListaChromosomow.RemoveAt(0);
+                    loopCounter = 0;
                 }
             }
 
