@@ -39,19 +39,10 @@ namespace ZadanieKomiwojazera
 
             }
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 500; i++)
             {
                 listaOsobnikow = podstawoweKrzyzowanie(listaOsobnikow);
-
             }
-            
-
-            //int counter = 0;
-            //foreach (var item in listaOsobnikow)
-            //{
-            //    Console.WriteLine("Osobnik[{0,2}]: {1,2}", counter, item.ocena);
-            //    counter++;
-            //}
 
             Console.ReadKey();
         }
@@ -59,6 +50,9 @@ namespace ZadanieKomiwojazera
         private static ChromosomReprezentacjaPorzadkowa[] podstawoweKrzyzowanie(ChromosomReprezentacjaPorzadkowa[] listaOsobnikow)
         {
             List<ChromosomReprezentacjaPorzadkowa> prawdziwaListaChromosomow = new List<ChromosomReprezentacjaPorzadkowa>();
+
+            ReprezentacjaPorzadkowa reprPorz = new ReprezentacjaPorzadkowa();
+
             Console.WriteLine("Przed krzyzowaniem: ");
             int i = 1;
             int Total = 0;
@@ -73,9 +67,11 @@ namespace ZadanieKomiwojazera
 
             List<ChromosomReprezentacjaPorzadkowa> dzieci = new List<ChromosomReprezentacjaPorzadkowa>();
 
+            int counter = prawdziwaListaChromosomow.Count-1;
+
             int loopCounter = 0;
 
-            while (prawdziwaListaChromosomow.Count > 1)
+            while (counter > 0)
             {
                 int g = GlobalVariables.random.Next(1, 3);
 
@@ -83,37 +79,31 @@ namespace ZadanieKomiwojazera
 
                 int osobnik_B = GlobalVariables.random.Next(1,prawdziwaListaChromosomow.Count-1);
 
-                ChromosomReprezentacjaPorzadkowa dziecko;
-                ChromosomReprezentacjaPorzadkowa rodzic = prawdziwaListaChromosomow[0];
-
+                ChromosomReprezentacjaPorzadkowa dziecko = null;
+                ChromosomReprezentacjaPorzadkowa rodzic = prawdziwaListaChromosomow[counter];
                 //Console.WriteLine("Krzyzowanie, punkt przeciecia = {0}:", punktPrzeciecia);
                 if (g % 3 == 1)
                 {
                     //cross with the next one
                     dziecko =
-                    ReprezentacjaPorzadkowa.krzyzowanieJednopunktowe(punktPrzeciecia, 
-                        rodzic, prawdziwaListaChromosomow[1]);
+                    reprPorz.krzyzowanieJednopunktowe(punktPrzeciecia,
+                        rodzic, prawdziwaListaChromosomow[counter-1]);
                 } else {
                     //cross with random next
                     dziecko =
-                    ReprezentacjaPorzadkowa.krzyzowanieJednopunktowe(punktPrzeciecia,
+                    reprPorz.krzyzowanieJednopunktowe(punktPrzeciecia,
                         rodzic, prawdziwaListaChromosomow[osobnik_B]);
                 }
 
-                if (rodzic.ocena > dziecko.ocena || rodzic.ocena == dziecko.ocena)
+                if (rodzic.ocena > dziecko.ocena || rodzic.ocena == dziecko.ocena || loopCounter == 2000)
                 {
                     dzieci.Add(dziecko);
-                    prawdziwaListaChromosomow.RemoveAt(0);
                     loopCounter = 0;
+                    counter--;
                 }
 
                 loopCounter++;
 
-                if (loopCounter == 250)
-                {
-                    prawdziwaListaChromosomow.RemoveAt(0);
-                    loopCounter = 0;
-                }
             }
 
             dzieci.Add(prawdziwaListaChromosomow[0]);

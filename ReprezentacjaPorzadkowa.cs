@@ -35,39 +35,19 @@ namespace ZadanieKomiwojazera
             return output;
         }
 
-        public static ChromosomReprezentacjaPorzadkowa krzyzowanieJednopunktowe(int punktPrzeciecia, ChromosomReprezentacjaPorzadkowa pierwszyOsobnik, ChromosomReprezentacjaPorzadkowa drugiOsobnik)
+        public ChromosomReprezentacjaPorzadkowa krzyzowanieJednopunktowe(int punktPrzeciecia, ChromosomReprezentacjaPorzadkowa pierwszyOsobnik, ChromosomReprezentacjaPorzadkowa drugiOsobnik)
         {
             ChromosomReprezentacjaPorzadkowa klonA = new ChromosomReprezentacjaPorzadkowa(pierwszyOsobnik.ciagWiazan);
             ChromosomReprezentacjaPorzadkowa klonB = new ChromosomReprezentacjaPorzadkowa(drugiOsobnik.ciagWiazan);
+            int[] temp = pierwszyOsobnik.ciagWiazan;
             for (int i = 0; i < punktPrzeciecia; i++)
             {
-                klonA.ciagWiazan[i] = klonA.ciagWiazan[i] ^ klonB.ciagWiazan[i];
-                klonB.ciagWiazan[i] = klonA.ciagWiazan[i] ^ klonB.ciagWiazan[i];
-                klonA.ciagWiazan[i] = klonA.ciagWiazan[i] ^ klonB.ciagWiazan[i];
+                klonA.ciagWiazan[i] = klonB.ciagWiazan[i];
+                klonB.ciagWiazan[i] = temp[i];
             }
             klonA.updateTrasy();
             klonA.updateOcena();
             return klonA;
         }
-
-        /// <summary>
-        /// Zwraca true, gdy dziecko jest lepsze od rodzica
-        /// </summary>
-        /// <param name="rodzic"></param>
-        /// <param name="dziecko"></param>
-        /// <returns></returns>
-        //public static bool ocena(ChromosomReprezentacjaPorzadkowa _rodzic, ChromosomReprezentacjaPorzadkowa _dziecko) 
-        //{
-        //    //ChromosomReprezentacjaPorzadkowa rodzic = new ChromosomReprezentacjaPorzadkowa(_rodzic.ciagWiazan);
-        //    //ChromosomReprezentacjaPorzadkowa dziecko = new ChromosomReprezentacjaPorzadkowa(_dziecko.ciagWiazan);
-        //    //rodzic.updateTrasy();
-        //    //rodzic.updateOcena();
-        //    //dziecko.updateTrasy();
-        //    //dziecko.updateOcena();
-        //    if (rodzic.ocena < dziecko.ocena)
-        //        return false;
-        //    else 
-        //        return true;
-        //}
     }
 }
